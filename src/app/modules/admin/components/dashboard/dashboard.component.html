@@ -1,0 +1,46 @@
+<h2 class="text-3xl font-extrabold mb-6 text-blue-600 text-center">ADMIN Dashboard</h2>
+<div class="container mx-auto p-6 bg-gray-50 rounded-lg shadow-lg">
+  <h2 class="text-2xl font-bold mb-4 text-gray-700">Danh sách phòng</h2>
+
+  <!-- Loading spinner khi dữ liệu đang được tải -->
+  <div *ngIf="loading" class="flex justify-center items-center py-10">
+    <div class="spinner-border animate-spin inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Danh sách phòng -->
+  <div *ngIf="!loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let room of rooms" class="rounded-lg shadow-lg bg-white p-6 hover:shadow-xl transition-shadow duration-200">
+      <img src="https://blog.rever.vn/hubfs/cho_thue_phong_tro_moi_xay_gia_re_ngay_phuong_15_tan_binh3.jpg" alt="Room Image" class="w-full h-40 object-cover rounded-lg mb-4 bg-gray-200">
+      <h3 class="font-bold text-xl text-blue-600 mb-2">{{ room.name }}</h3>
+      <p class="text-gray-600">Loại phòng: <span class="font-medium">{{ room.type }}</span></p>
+      <p class="text-gray-600">Giá: <span class="font-medium">{{ room.price | currency:'VND' }}</span></p>
+      <div class="flex justify-between gap-2 mt-4 border-t pt-4">
+        <button class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors" routerLink="/admin/room/{{room.id}}/edit">
+          Edit
+        </button>
+        <button class="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors" (click)="deleteRoom(room.id)">
+          DELETE
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phân trang -->
+  <div class="mt-8 flex justify-center space-x-2">
+    <button (click)="previousPage()" [disabled]="currentPage === 1"
+            class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Previous">
+      Trước
+    </button>
+
+    <span class="px-4 py-2 bg-gray-200 rounded-lg font-medium text-gray-700">{{ currentPage }}</span>
+
+    <button (click)="nextPage()" [disabled]="currentPage === total"
+            class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Next">
+      Tiếp
+    </button>
+  </div>
+</div>
