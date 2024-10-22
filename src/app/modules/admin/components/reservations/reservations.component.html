@@ -1,0 +1,84 @@
+<div class="reservations-container p-8 bg-gradient-to-r from-gray-100 to-white rounded-xl shadow-lg">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Danh sách Đặt chỗ</h2>
+
+  <!-- Hiển thị danh sách đặt chỗ -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+      <thead>
+        <tr class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">Room Name</th>
+          <th class="py-3 px-6 text-left">Room Type</th>
+          <th class="py-3 px-6 text-left">Check-in Date</th>
+          <th class="py-3 px-6 text-left">Check-out Date</th>
+          <th class="py-3 px-6 text-right">Price</th>
+          <th class="py-3 px-6 text-left">Username</th>
+          <th class="py-3 px-6 text-left">Status</th>
+          <th class="py-3 px-6 text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600 text-sm font-light">
+        <tr *ngFor="let reservation of reservations" class="border-b border-gray-300 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left">{{ reservation.roomName }}</td>
+          <td class="py-3 px-6 text-left">{{ reservation.roomType }}</td>
+          <td class="py-3 px-6 text-left">{{ reservation.checkInDate }}</td>
+          <td class="py-3 px-6 text-left">{{ reservation.checkOutDate }}</td>
+          <td class="py-3 px-6 text-right">{{ reservation.price | currency }}</td>
+          <td class="py-3 px-6 text-left">{{ reservation.userName }}</td>
+          
+          <!-- Hiển thị trạng thái đặt chỗ -->
+          <td class="py-3 px-6 text-left">
+            <span class="px-3 py-1 rounded-full text-sm font-semibold"
+                  [ngClass]="{
+                    'bg-yellow-200 text-yellow-800': reservation.reservationStatus === 'FENDING',
+                    'bg-green-200 text-green-800': reservation.reservationStatus === 'APPROVED',
+                    'bg-red-200 text-red-800': reservation.reservationStatus === 'REJECTED'
+                  }">
+              {{ reservation.reservationStatus }}
+            </span>
+          </td>
+
+          <!-- Hành động phê duyệt hoặc từ chối -->
+          <td class="py-3 px-6 text-center">
+            <span *ngIf="reservation.reservationStatus == 'FENDING'" class="flex justify-center">
+              <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200 mr-2"
+                      (click)="changeReservationStatus(reservation.id, 'Approve')">
+                      APPROVED
+              </button>
+              <button class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-200"
+                      (click)="changeReservationStatus(reservation.id, 'Rejected')">
+                      REJECTED
+              </button>
+            </span>
+            <div *ngIf="reservation.reservationStatus !== 'FENDING'" class="text-gray-500 italic">
+              No actions available
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Hiển thị thông báo nếu không có dữ liệu -->
+  <div *ngIf="reservations.length === 0" class="mt-6">
+    <p class="text-center text-gray-600">Không có đặt chỗ nào.</p>
+  </div>
+
+  <!-- Phân trang -->
+  <div class="pagination flex justify-between items-center mt-6">
+    <button 
+      (click)="pageIndexChange(currentPage - 1)" 
+      [disabled]="currentPage === 1"
+      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-lg disabled:opacity-50 transition duration-200"
+    >
+      Trang trước
+    </button>
+    <span class="text-lg font-semibold text-gray-700">Trang {{ currentPage }}</span>
+    <button 
+      (click)="pageIndexChange(currentPage + 1)" 
+      [disabled]="currentPage >= total / 5"
+      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-lg disabled:opacity-50 transition duration-200"
+    >
+      Trang sau
+    </button>
+  </div>
+</div>
