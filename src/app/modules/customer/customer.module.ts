@@ -9,14 +9,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ViewBookingsComponent } from './components/view-bookings/view-bookings.component';
+import { ViewBookingComponent } from './components/view-booking/view-booking.component';
 
 
 @NgModule({
   declarations: [
     CustomerComponent,
     RoomsComponent,
-    ViewBookingsComponent
+    ViewBookingComponent
   ],
   imports: [
     CommonModule,
