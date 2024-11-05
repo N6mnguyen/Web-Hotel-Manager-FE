@@ -12,12 +12,12 @@
   <!-- Danh sách phòng -->
   <div *ngIf="!loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <div *ngFor="let room of rooms" class="rounded-lg shadow-lg bg-white p-6 hover:shadow-xl transition-shadow duration-200">
-      <img src="https://blog.rever.vn/hubfs/cho_thue_phong_tro_moi_xay_gia_re_ngay_phuong_15_tan_binh3.jpg" alt="Room Image" class="w-full h-40 object-cover rounded-lg mb-4 bg-gray-200">
+      <img [src]="room.image" alt="Room Image" class="w-full h-48 object-cover rounded-lg mb-4 bg-gray-200">
       <h3 class="font-bold text-xl text-blue-600 mb-2">{{ room.name }}</h3>
       <p class="text-gray-600">Loại phòng: <span class="font-medium">{{ room.type }}</span></p>
       <p class="text-gray-600">Giá: <span class="font-medium">{{ room.price | currency:'VND' }}</span></p>
       <div class="flex justify-between gap-2 mt-4 border-t pt-4">
-        <button class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors" routerLink="/admin/room/{{room.id}}/edit">
+        <button class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors" routerLink="/control/admin/room/{{room.id}}/edit">
           Edit
         </button>
         <button class="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors" (click)="deleteRoom(room.id)">

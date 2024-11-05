@@ -1,0 +1,73 @@
+<div class="container mx-auto p-8 bg-gray-50 rounded-lg shadow-lg w-[90%]">
+  <h2 class="text-3xl font-extrabold mb-6 text-gray-800">Danh sách phòng</h2>
+
+  <!-- Loading spinner khi dữ liệu đang được tải -->
+  <div *ngIf="loading" class="flex justify-center items-center py-10">
+    <div class="spinner-border animate-spin inline-block w-14 h-14 border-4 border-blue-500 border-t-transparent rounded-full" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Danh sách phòng -->
+  <div *ngIf="!loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div *ngFor="let room of rooms" class="rounded-lg shadow-lg bg-white p-6 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+      <a href="/detail/{{room.id}}"><img
+        src="{{ room.image }}"
+        alt=""
+        class="Room Image" class="w-full h-48 object-cover rounded-lg mb-4 bg-gray-200"
+        />
+      </a>
+      <!-- <img [src]="room.image" alt="Room Image" class="w-full h-48 object-cover rounded-lg mb-4 bg-gray-200"> -->
+      <a href="/detail/{{room.id}}"><h3 class="font-extrabold text-xl text-blue-700 mb-2">{{ room.name }}</h3></a>
+      <p class="text-gray-600">Loại phòng: <span class="font-semibold">{{ room.type }}</span></p>
+      <p class="text-gray-600">Giá: <span class="font-semibold text-green-600">{{ room.price | currency:'VND' }}</span></p>
+
+      <!-- Nút Đặt phòng -->
+      <button (click)="showModalMiddle(room.id)" (click)="placeOrder()" class="mt-5 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+        Đặt phòng
+      </button>
+    </div>
+  </div>
+
+  <!-- Phân trang -->
+  <div class="mt-10 flex justify-center items-center space-x-4">
+    <button (click)="previousPage()" [disabled]="currentPage === 1"
+            class="bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Previous">
+      Trước
+    </button>
+    <span class="px-5 py-2 bg-gray-100 rounded-lg font-semibold text-gray-800">{{ currentPage }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === total"
+            class="bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Next">
+      Tiếp
+    </button>
+  </div>
+</div>
+
+<!-- Modal Đặt phòng -->
+<div *ngIf="isVisibleMiddle" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Đặt phòng</h2>
+
+    <!-- Form nhập ngày nhận và trả phòng -->
+    <div class="mb-6">
+      <label class="block text-gray-800 font-semibold">Ngày nhận phòng</label>
+      <input type="date" [(ngModel)]="checkInDate" class="border border-gray-300 rounded-lg px-4 py-3 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-800 font-semibold">Ngày trả phòng</label>
+      <input type="date" [(ngModel)]="checkOutDate" class="border border-gray-300 rounded-lg px-4 py-3 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+
+    <!-- Nút Xác nhận và Hủy -->
+    <div class="flex justify-end space-x-4">
+      <button (click)="handleCancelMiddle()" class="bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400">
+        Hủy
+      </button>
+      <button (click)="handleOkMidlle()" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
+        Xác nhận
+      </button>
+    </div>
+  </div>
+</div>

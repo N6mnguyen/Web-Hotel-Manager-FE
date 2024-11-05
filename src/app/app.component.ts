@@ -9,28 +9,4 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   title = 'hotelWeb';
-  
-  isCustomerLoggedIn: boolean = false;
-  isAdminLoggedIn: boolean = false;
-
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    // Cập nhật trạng thái khi ứng dụng khởi động
-    this.isCustomerLoggedIn = UserstorageService.isCustomerLoggedIn();
-    this.isAdminLoggedIn = UserstorageService.isAdminLoggedIn();
-
-    // Lắng nghe sự kiện thay đổi route
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.isCustomerLoggedIn = UserstorageService.isCustomerLoggedIn();
-        this.isAdminLoggedIn = UserstorageService.isAdminLoggedIn();
-      }
-    });
-  }
-
-  logout() {
-    UserstorageService.signOut();
-    this.router.navigateByUrl('/');
-  }
 }

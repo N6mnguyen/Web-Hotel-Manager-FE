@@ -1,0 +1,59 @@
+<body class="bg-gray-100 h-screen">
+    <div class="flex h-full">
+      <!-- Sidebar -->
+      <div class="w-1/5 bg-gray-900 h-full p-6 text-white shadow-lg">
+        <!-- Logo/Title -->
+        <div class="mb-10">
+          <h1 class="text-3xl font-extrabold text-white tracking-wide">DASHBOARD</h1>
+        </div>
+        
+        <!-- Menu cho khách chưa đăng nhập -->
+        <nav class="font-medium space-y-4" *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn">
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href="/control/register" class="block py-2 px-4 bg-blue-500 text-center text-white rounded-lg hover:bg-blue-600 transition-colors">Register</a>
+            </li>
+            <li>
+              <a href="/control/login" class="block py-2 px-4 bg-green-500 text-center text-white rounded-lg hover:bg-green-600 transition-colors">Login</a>
+            </li>
+          </ul>
+        </nav>
+  
+        <!-- Menu cho Admin -->
+        <nav class="font-medium space-y-4" *ngIf="isAdminLoggedIn">
+          <ul class="flex flex-col gap-4">
+            <!-- Dropdown quản lý phòng -->
+            <select class="w-full px-4 py-3 bg-gray-800 text-white text-base font-medium rounded-lg border-2 border-transparent hover:border-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300" onchange="window.location.href=this.value;">
+              <option disabled selected>Quản Lý Phòng</option>
+              <option value="/control/admin/dashboard">Danh Sách Phòng</option>
+              <option value="/control/admin/room">Thêm Phòng</option>
+              <option value="/control/admin/reservations">Danh Sách Đặt Phòng</option>
+            </select>
+
+            <!-- Dropdown quản lý người dùng -->
+            <select class="w-full px-4 py-3 bg-gray-800 text-white text-base font-medium rounded-lg border-2 border-transparent hover:border-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300" onchange="window.location.href=this.value;">
+              <option disabled selected>Quản Lý Người Dùng</option>
+              <option value="/control/admin/user">Danh Sách Người Dùng</option>
+            </select>
+
+            <!-- Bình luận -->
+            <select class="w-full px-4 py-3 bg-gray-800 text-white text-base font-medium rounded-lg border-2 border-transparent hover:border-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300" onchange="window.location.href=this.value;">
+              <option disabled selected>Quản lý bình luận</option>
+              <option value="/control/admin/binhluan">Danh sách binh luận</option>
+            </select>
+        
+            <!-- Nút logout -->
+            <li>
+              <a href="/control" (click)="logout()" class="block w-full py-3 px-4 bg-red-500 text-center text-white font-medium rounded-lg hover:bg-red-600 focus:ring-4 focus:ring-red-300 transition duration-300">Logout</a>
+            </li>
+          </ul>
+        </nav>        
+      </div>
+  
+      <!-- Main Content -->
+      <div class="w-4/5 p-10 bg-gray-100 overflow-y-auto">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </body>
+  

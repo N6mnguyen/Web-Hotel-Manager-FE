@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserstorageService } from 'src/app/auth/service/storage/userstorage.service';
@@ -51,5 +51,32 @@ export class AdminService {
       'Authorization',
       'Bearer ' + UserstorageService.getToken()  // Thêm khoảng trắng sau 'Bearer'
     );
+  }
+  ListUsers(page: number, size: number, name: string, dbType: string): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('name', name)
+      .set('dbType', dbType);
+  
+    return this.http.get<any>(BASIC_URL + `api/auth`, {
+      headers: this.createAuthorizationHeader(),
+      params: params 
+    });
+  }
+  getUserById(id: number ):Observable<any>{
+    return this.http.get(BASIC_URL+`api/auth/user/${id}`,{
+      headers : this.createAuthorizationHeader(),
+    })
+  }
+  updateUser(id: number,userDto:any ):Observable<any>{
+    return this.http.put(BASIC_URL+`api/auth/user/${id}`,userDto,{
+      headers : this.createAuthorizationHeader(),
+    })
+  }
+  deleteUser(userId: number ):Observable<any>{
+    return this.http.delete(BASIC_URL+`api/auth/user/${userId}`,{
+      headers : this.createAuthorizationHeader(),
+    })
   }
 }

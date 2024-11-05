@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,8 @@ export class AuthService {
   }
 
   login(loginRequset: any): Observable<any> {
-    return this.http.post(this.BASIC_URL+"api/auth/login", loginRequset);
+    return this.http.post(this.BASIC_URL+"api/auth/login", loginRequset).pipe(catchError(error=>{
+      return error;
+    }));
   }
 }

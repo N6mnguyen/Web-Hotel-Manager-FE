@@ -20,6 +20,7 @@ roomDetailForm!: FormGroup;
     name:['',Validators.required],
     type:['',Validators.required],
     price:['',Validators.required],
+    image:['',Validators.required],
 
   })
   }
@@ -29,7 +30,7 @@ roomDetailForm!: FormGroup;
       this.adminService.postRoomDetail(this.roomDetailForm.value).subscribe(
         res => {
           alert("Room Posted Successfully");
-          this.router.navigateByUrl('/admin/dashboard');
+          this.router.navigateByUrl('/control/admin/dashboard');
         },
         error => {
           console.error('Lỗi từ server:', error);

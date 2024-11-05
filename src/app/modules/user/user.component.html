@@ -1,0 +1,50 @@
+ <!-- Hiển thị danh sách đặt chỗ -->
+ <div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+    <thead>
+      <tr class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
+        <th class="py-3 px-6 text-left">ID</th>
+        <th class="py-3 px-6 text-left">NAME</th>
+        <th class="py-3 px-6 text-left">EMAIL</th>
+        <th class="py-3 px-6 text-left">ROLE</th>
+        <th class="py-3 px-6 text-left">ACTION</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-600 text-sm font-light">
+      <tr *ngFor="let user of users" class="border-b border-gray-300 hover:bg-gray-100">
+        <td class="py-3 px-6 text-left">{{ user.id }}</td>
+        <td class="py-3 px-6 text-left">{{ user.name }}</td>
+        <td class="py-3 px-6 text-left">{{ user.email }}</td>
+        <td class="py-3 px-10 text-left">{{ user.userRole }}</td>
+        <td class="flex gap-2">
+          <button class="bg-gray-400 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors w-20" routerLink="/control/admin/user/{{user.id}}/edit">
+            EDIT
+          </button>
+          <button class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors w-20" (click)="deleteUser(user.id)">
+            DELETE
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="flex items-center justify-between mt-6">
+  <button 
+    (click)="onPageChange(currentPage - 1)" 
+    [disabled]="currentPage === 0" 
+    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400">
+    Previous
+  </button>
+  
+  <span class="text-lg">
+    Page {{ currentPage + 1 }}
+  </span>
+
+  <button 
+    (click)="onPageChange(currentPage + 1)" 
+    [disabled]="(currentPage + 1) * pageSize >= totalUsers" 
+    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400">
+    Next
+  </button>
+</div>

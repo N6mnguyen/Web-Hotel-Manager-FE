@@ -10,6 +10,7 @@ import { UpdateRoomComponent } from './components/update-room/update-room.compon
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { BinhLuanComponent } from './components/binh-luan/binh-luan.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     PostRoomComponent,
     UpdateRoomComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    BinhLuanComponent
   ],
   imports: [
     CommonModule,

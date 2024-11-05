@@ -21,13 +21,14 @@ export class UpdateRoomComponent {
     name:['',Validators.required],
     type:['',Validators.required],
     price:['',Validators.required],
+    image:['',Validators.required],
     });
     this.getRoomById();
   }
   onSubmitForm(){
     this.adminService.updateRoomDetail(this.id,this.updateRoomForm.value).subscribe(res=>{
         alert('Room upadated successfully');
-        this.router.navigateByUrl("/admin/dashboard");
+        this.router.navigateByUrl("/control/admin/dashboard");
     },error=>{
       alert(error.error)
     });

@@ -1,0 +1,20 @@
+<div class="container mx-auto p-6 bg-gray-200 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-center mb-4">UPDATE USER</h2>
+    <form [formGroup]="updateUserForm" (ngSubmit)="onSubmitForm()">
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">NAME</label>
+            <input formControlName="name" type="text" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2" />
+            <p *ngIf="updateUserForm.get('name').invalid && updateUserForm.get('text').touched" class="text-red-500 text-sm mt-1">Name is required</p>
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">EMAIL</label>
+            <input formControlName="email" type="text" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2" />
+            <p *ngIf="updateUserForm.get('email').invalid && updateUserForm.get('text').touched" class="text-red-500 text-sm mt-1">Email is required</p>
+        </div>
+        <div>
+            <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600">
+              SAVE
+            </button>
+        </div>
+    </form>
+</div>

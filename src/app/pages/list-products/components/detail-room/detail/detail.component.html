@@ -1,0 +1,31 @@
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold text-center mb-6">Chi tiết phòng</h2>
+  <div *ngIf="room" class="grid grid-cols-2 gap-8 py-2">
+    <div class="flex justify-center">
+      <img *ngIf="room.image" [src]="room.image" alt="{{ room.name }}" class="mt-4 rounded-lg w-full h-auto shadow-lg" />
+    </div>
+    <div class="flex flex-col">
+      <h3 class="text-xl font-bold mb-2 my-4">{{ room.name }}</h3>
+      <p class="text-gray-600">Loại: <span class="font-semibold">{{ room.type }}</span></p>
+      <p class="text-gray-600">Giá: <span class="font-semibold text-green-600">{{ room.price | currency:'VND' }}</span></p>
+    </div>
+  </div>
+  
+  <h3 class="text-lg font-semibold my-4">Bình luận</h3>
+  
+  <div *ngFor="let comment of comments" class="border rounded-lg p-4 mb-2 shadow-sm flex justify-between items-center">
+    <div>
+      <p class="text-gray-800">Nội dung: {{ comment.content }}</p>
+      <p>Ngày: {{ comment.createdAt }}</p>
+    </div>
+    <button class="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition duration-200" 
+            (click)="deleteComment(comment.id)">
+      DELETE
+    </button>
+  </div>
+
+  <textarea [(ngModel)]="newComment" placeholder="Thêm bình luận..." class="border rounded-md p-2 w-full h-24 my-2" rows="4"></textarea>
+  <div class="flex justify-between">
+    <button (click)="addComment()" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow-md hover:bg-blue-600 transition duration-200">Gửi bình luận</button>
+  </div>
+</div>
